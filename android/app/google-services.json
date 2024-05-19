@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "109006653809",
+    "project_id": "tunzapresha",
+    "storage_bucket": "tunzapresha.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:109006653809:android:4bdd09c883acb628158ed0",
+        "android_client_info": {
+          "package_name": "com.example.tunza_presha"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvSBtCJXAPXssXdspbFB1mwHbCRuUxh0Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:109006653809:android:f6b1a1b703598931158ed0",
+        "android_client_info": {
+          "package_name": "com.jason.tunzapresha"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvSBtCJXAPXssXdspbFB1mwHbCRuUxh0Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
