@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:tunza_presha/constants/color_constants.dart';
 import 'package:tunza_presha/utils.dart';
 
 class BPReadingItem extends StatelessWidget {
@@ -25,7 +26,7 @@ class BPReadingItem extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: vitalColor.withOpacity(.3),
+        color: vitalColor.withOpacity(.1),
       ),
       padding: const EdgeInsets.all(15),
       margin: EdgeInsets.all(showMargin ? 10 : 0),
@@ -40,7 +41,7 @@ class BPReadingItem extends StatelessWidget {
                 reading,
                 style: TextStyle(
                   fontSize: 18,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w800,
                   color: vitalColor,
                 ),
               ),
@@ -48,7 +49,7 @@ class BPReadingItem extends StatelessWidget {
                 status,
                 style: TextStyle(
                   fontSize: 18,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w800,
                   color: vitalColor,
                 ),
               ),
@@ -57,9 +58,9 @@ class BPReadingItem extends StatelessWidget {
           const SizedBox(height: 5),
           Text(
             dateRecorded,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 10,
-              color: Color.fromARGB(255, 91, 90, 90),
+              color: greyColor.withOpacity(.4),
             ),
           ),
           const SizedBox(height: 10),

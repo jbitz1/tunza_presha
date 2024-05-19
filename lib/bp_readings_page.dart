@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:tunza_presha/components/app_button.dart';
 import 'package:tunza_presha/components/bp_fiters_widget.dart';
 import 'package:tunza_presha/components/bp_reading_item.dart';
 import 'package:tunza_presha/constants/color_constants.dart';
 import 'package:tunza_presha/constants/string_constants.dart';
+import 'package:tunza_presha/data/app_data.dart';
 import 'package:tunza_presha/routes.dart';
 
 class BPReadingPage extends StatelessWidget {
@@ -27,48 +29,47 @@ class BPReadingPage extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: TextButton(
+      floatingActionButton: PrimaryButton(
         onPressed: () {
-          //go to new_reading_page
           Navigator.pushNamed(context, newReadingPageRoute);
         },
-        style: const ButtonStyle(
-            fixedSize: MaterialStatePropertyAll(Size(362, 56)),
-            backgroundColor:
-                MaterialStatePropertyAll(Color.fromARGB(2557, 117, 68, 191))),
-        child: const Text(
-          "Add Pressure Reading",
-          style: TextStyle(fontSize: 20, color: Colors.white),
-        ),
+        text: "Add Pressure Reading",
       ),
+      // floatingActionButton: TextButton(
+      //   onPressed: () {
+      //     //go to new_reading_page
+      //     Navigator.pushNamed(context, newReadingPageRoute);
+      //   },
+      //   style: const ButtonStyle(
+      //       fixedSize: MaterialStatePropertyAll(Size(362, 56)),
+      //       backgroundColor: MaterialStatePropertyAll(primaryColor)),
+      //   child: const Text(
+      //     "Add Pressure Reading",
+      //     style: TextStyle(fontSize: 20, color: Colors.white),
+      //   ),
+      // ),
       body: Container(
         padding: const EdgeInsets.all(8),
         child: ListView(
-          children: const [
-            Center(
+          children: [
+            const Center(
               child: Text(
                 bpReadingsDescription,
               ),
             ),
-            SizedBox(height: 10),
-            BPFiltersWidget(),
-            SizedBox(height: 10),
-            BPReadingItem(
-                reading: "122/80",
-                dateRecorded: "Oct 21, 2022 at 10:41 am",
-                status: "ELEVATED"),
-            BPReadingItem(
-                reading: "122/80",
-                dateRecorded: "Oct 21, 2022 at 10:41 am",
-                status: "LOW"),
-            BPReadingItem(
-                reading: "122/80",
-                dateRecorded: "Oct 21, 2022 at 10:41 am",
-                status: "NORMAL"),
-            BPReadingItem(
-                reading: "122/80",
-                dateRecorded: "Oct 21, 2022 at 10:41 am",
-                status: "NORMAL"),
+            const SizedBox(height: 10),
+            const BPFiltersWidget(),
+            const SizedBox(height: 10),
+            ...bpReadings.map(
+              (reading) {
+                return BPReadingItem(
+                  reading: "${reading["systole"]}/${reading["diastole"]}",
+                  dateRecorded: reading["systole"],
+                  status: reading["status"],
+                  description: reading["notes"],
+                );
+              },
+            ),
           ],
         ),
       ),
