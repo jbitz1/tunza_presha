@@ -136,11 +136,13 @@ class _NewReadingPageState extends State<NewReadingPage> {
                       filled: true)),
             ),
             Container(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.all(20),
               margin: const EdgeInsets.symmetric(horizontal: 20),
               width: 400,
-              height: 176,
-              color: const Color.fromARGB(255, 255, 204, 166),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: const Color.fromARGB(255, 255, 204, 166),
+              ),
               child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -150,6 +152,7 @@ class _NewReadingPageState extends State<NewReadingPage> {
                     style: TextStyle(
                         fontSize: 16, color: Color.fromARGB(255, 211, 82, 8)),
                   ),
+                  SizedBox(height: 5),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -169,6 +172,7 @@ class _NewReadingPageState extends State<NewReadingPage> {
                       )
                     ],
                   ),
+                  SizedBox(height: 5),
                   Text(
                     'Your blood pressure seems elevated',
                     style: TextStyle(

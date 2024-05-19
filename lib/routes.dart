@@ -1,7 +1,7 @@
 const String homePageRoute = "/homePageRoute";
-const String newReadingPage = "/newReadingPage";
-const String bpReadingPage = "/bpReadingPage";
-const String reminderPage = "/reminderPage";
+const String newReadingPageRoute = "/newReadingPageRoute";
+const String bpReadingPageRoute = "/bpReadingPageRoute";
+const String reminderPageRoute = "/reminderPageRoute";
 
 
 

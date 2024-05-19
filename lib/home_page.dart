@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tunza_presha/components/bp_reading_item.dart';
+import 'package:tunza_presha/routes.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -48,7 +50,7 @@ class _HomePageState extends State<HomePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Good morning user",
+                          "Good morning Jason",
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -141,40 +143,23 @@ class _HomePageState extends State<HomePage> {
                   TextButton(
                     child: const Text("View more"),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/bpReadingPage');
+                      Navigator.pushNamed(context, bpReadingPageRoute);
                     },
                   )
                 ],
               ),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "16 Feb 24",
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                    ),
-                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                      Text("120/80",
-                          style: TextStyle(
-                              fontSize: 48,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.green)),
-                      Padding(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-                        child: Text(
-                          "Normal",
-                          style: TextStyle(fontSize: 18, color: Colors.green),
-                        ),
-                      )
-                    ])
-                  ],
-                ),
+              const BPReadingItem(
+                reading: "120/80",
+                dateRecorded: "May 19, 2024",
+                status: "NORMAL",
+                showMargin: false,
+              ),
+              const SizedBox(height: 10),
+              const BPReadingItem(
+                reading: "120/80",
+                dateRecorded: "May 19, 2024",
+                status: "NORMAL",
+                showMargin: false,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
