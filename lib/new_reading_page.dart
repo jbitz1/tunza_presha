@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tunza_presha/components/bp_reading_item.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -135,52 +136,12 @@ class _NewReadingPageState extends State<NewReadingPage> {
                       fillColor: Colors.blueGrey[50],
                       filled: true)),
             ),
-            Container(
-              padding: const EdgeInsets.all(20),
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              width: 400,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: const Color.fromARGB(255, 255, 204, 166),
-              ),
-              child: const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    'Current readings',
-                    style: TextStyle(
-                        fontSize: 16, color: Color.fromARGB(255, 211, 82, 8)),
-                  ),
-                  SizedBox(height: 5),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "140/98mmhg",
-                        style: TextStyle(
-                            fontSize: 25,
-                            color: Color.fromARGB(255, 211, 82, 8),
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        '6BPM',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 25,
-                            color: Color.fromARGB(255, 211, 82, 8)),
-                      )
-                    ],
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    'Your blood pressure seems elevated',
-                    style: TextStyle(
-                        fontSize: 16, color: Color.fromARGB(255, 211, 82, 8)),
-                  )
-                ],
-              ),
-            )
+            const BPReadingItem(
+              reading: "120/80",
+              dateRecorded: "May 19, 2024",
+              status: "NORMAL",
+              description: 'Your blood pressure seems elevated',
+            ),
           ],
         ),
       ),
