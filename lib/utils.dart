@@ -14,7 +14,7 @@ void createUser() {
 
 // Add a new document with a generated ID
   db.collection(usersCollection).add(user).then((DocumentReference doc) =>
-      print('DocumentSnapshot added with ID: ${doc.id}'));
+      debugPrint('DocumentSnapshot added with ID: ${doc.id}'));
 }
 
 Future<void> getUsers() async {
@@ -22,7 +22,7 @@ Future<void> getUsers() async {
 
   await db.collection(bpReadingsCollection).get().then((event) {
     for (var doc in event.docs) {
-      print("${doc.id} => ${doc.data()}");
+      debugPrint("${doc.id} => ${doc.data()}");
     }
   });
 }

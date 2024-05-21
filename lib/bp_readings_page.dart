@@ -28,26 +28,26 @@ class BPReadingPage extends StatelessWidget {
             ),
           ),
         ),
+        // ),
+        // floatingActionButton: PrimaryButton(
+        //   onPressed: () {
+        //     Navigator.pushNamed(context, newReadingPageRoute);
+        //   },
+        //   text: "Add Pressure Reading",
       ),
-      floatingActionButton: PrimaryButton(
+      floatingActionButton: TextButton(
         onPressed: () {
+          //go to new_reading_page
           Navigator.pushNamed(context, newReadingPageRoute);
         },
-        text: "Add Pressure Reading",
+        style: const ButtonStyle(
+            fixedSize: MaterialStatePropertyAll(Size(362, 56)),
+            backgroundColor: MaterialStatePropertyAll(primaryColor)),
+        child: const Text(
+          "Add Pressure Reading",
+          style: TextStyle(fontSize: 20, color: Colors.white),
+        ),
       ),
-      // floatingActionButton: TextButton(
-      //   onPressed: () {
-      //     //go to new_reading_page
-      //     Navigator.pushNamed(context, newReadingPageRoute);
-      //   },
-      //   style: const ButtonStyle(
-      //       fixedSize: MaterialStatePropertyAll(Size(362, 56)),
-      //       backgroundColor: MaterialStatePropertyAll(primaryColor)),
-      //   child: const Text(
-      //     "Add Pressure Reading",
-      //     style: TextStyle(fontSize: 20, color: Colors.white),
-      //   ),
-      // ),
       body: Container(
         padding: const EdgeInsets.all(8),
         child: ListView(

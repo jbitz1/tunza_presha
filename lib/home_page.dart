@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Good morning Jason",
+                          "Welcome",
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                           color: const Color.fromARGB(2557, 117, 68, 191),
                           icon: const Icon(Icons.add_box),
                           onPressed: () {
-                            Navigator.pushNamed(context, '/NewReadingPage');
+                            Navigator.pushNamed(context, newReadingPageRoute);
                           },
                         ),
                         const Text(
@@ -113,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                           color: const Color.fromARGB(2557, 117, 68, 191),
                           icon: const Icon(Icons.add_box),
                           onPressed: () {
-                            Navigator.pushNamed(context, '/reminderPage');
+                            Navigator.pushNamed(context, reminderPageRoute);
                           },
                         ),
                         const Text(
