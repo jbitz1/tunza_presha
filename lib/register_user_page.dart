@@ -1,7 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tunza_presha/firebase_auth_services.dart';
-import 'package:tunza_presha/routes.dart';
+import 'package:tunza_presha/components/buttons.dart';
+import 'package:tunza_presha/components/custom_text_field.dart';
+import 'package:tunza_presha/components/platform_loader.dart';
+import 'package:tunza_presha/constants/color_constants.dart';
+import 'package:tunza_presha/router/routes.dart';
+import 'package:tunza_presha/utils.dart';
 
 class RegisterUserPage extends StatefulWidget {
   const RegisterUserPage({super.key});
@@ -11,11 +14,10 @@ class RegisterUserPage extends StatefulWidget {
 }
 
 class RegisterUserPageState extends State<RegisterUserPage> {
-  final FirebaseAuthService _auth = FirebaseAuthService();
-
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool isLoading = false;
 
   @override
   void dispose() {
@@ -23,22 +25,6 @@ class RegisterUserPageState extends State<RegisterUserPage> {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
-  }
-
-  void _signUp() async {
-    String username = _usernameController.text;
-    String email = _emailController.text;
-    String password = _passwordController.text;
-
-    User? user = await _auth.signUpWithEmailAndPassword(email, password);
-    if (user != null) {
-      debugPrint("User is successfully created");
-      // Navigate to the home page after successful sign-up
-      Navigator.pushNamed(context, homePageRoute);
-    } else {
-      // Handle sign-up failure
-      debugPrint("Sign-up failed");
-    }
   }
 
   @override
@@ -51,107 +37,93 @@ class RegisterUserPageState extends State<RegisterUserPage> {
             children: [
               const Text(
                 "Sign Up",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 35,
+                  color: primaryColor,
+                ),
+              ),
+              const Text(
+                "Create your account to get started",
+                style: TextStyle(
+                  fontSize: 14,
+                  color: greyColor,
+                ),
               ),
               const SizedBox(height: 50),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    border: Border.all(color: Colors.white),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                    child: TextField(
-                      controller: _usernameController,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Username",
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    border: Border.all(color: Colors.white),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                    child: TextField(
-                      controller: _emailController,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Email",
-                      ),
-                    ),
-                  ),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: CustomTextField(
+                  textController: _emailController,
+                  inputType: TextInputType.emailAddress,
+                  labelText: "Email Address",
+                  hintText: "Enter your email address",
                 ),
               ),
               const SizedBox(height: 20),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    border: Border.all(color: Colors.white),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                    child: TextField(
-                      controller: _passwordController,
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Password",
-                      ),
-                    ),
-                  ),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: CustomTextField(
+                  textController: _passwordController,
+                  inputType: TextInputType.visiblePassword,
+                  labelText: "Password",
+                  hintText: "Enter your password",
+                  obscureText: true,
                 ),
               ),
-              const SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.deepPurple,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Center(
-                    child: GestureDetector(
-                      onTap: _signUp,
-                      child: const Padding(
-                        padding: EdgeInsets.all(16.0),
-                        child: Text(
-                          "Sign Up",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                        ),
+              const SizedBox(height: 20),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                width: double.infinity,
+                child: isLoading
+                    ? const PlatformLoader()
+                    : PrimaryButton(
+                        text: "Sign Up",
+                        onPressed: () async {
+                          setState(() {
+                            isLoading = true;
+                          });
+
+                          final bool isAccountCreated = await signUp(
+                              emailAddress: _emailController.text,
+                              password: _passwordController.text);
+
+                          if (isAccountCreated) {
+                            setState(() {
+                              isLoading = false;
+                            });
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                    'Account created. Sign in to continue'),
+                              ),
+                            );
+                            Navigator.pushNamed(
+                                context, AppRoutes.loginPageRoute);
+                          } else {
+                            setState(() {
+                              isLoading = false;
+                            });
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Unable to create account'),
+                              ),
+                            );
+                          }
+                        },
                       ),
-                    ),
-                  ),
-                ),
               ),
-              const SizedBox(height: 25),
+              const SizedBox(height: 20),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, loginPageRoute);
+                  Navigator.pushNamed(context, AppRoutes.loginPageRoute);
                 },
                 child: const Text(
                   "Already have an account? Sign In",
                   style: TextStyle(
-                    color: Colors.blue,
+                    color: primaryColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

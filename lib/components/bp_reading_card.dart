@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:tunza_presha/constants/color_constants.dart';
 import 'package:tunza_presha/utils.dart';
 
-class BPReadingItem extends StatelessWidget {
-  const BPReadingItem({
+class BPReadingCard extends StatelessWidget {
+  const BPReadingCard({
     super.key,
     required this.reading,
     required this.dateRecorded,
     required this.status,
+    this.showMargin = true,
     this.description = '',
   });
 
   final String reading;
   final String dateRecorded;
   final String status;
+  final bool showMargin;
   final String description;
 
   @override
@@ -27,43 +28,43 @@ class BPReadingItem extends StatelessWidget {
         color: vitalColor.withOpacity(.1),
       ),
       padding: const EdgeInsets.all(15),
-      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+      margin: EdgeInsets.all(showMargin ? 10 : 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
                 reading,
                 style: TextStyle(
-                  fontSize: 22,
+                  fontSize: 48,
                   fontWeight: FontWeight.bold,
                   color: vitalColor,
                 ),
               ),
-              Text(
-                status,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: vitalColor,
-                ),
+              const SizedBox(width: 5),
+              Column(
+                children: <Widget>[
+                  Text(
+                    status,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: vitalColor,
+                    ),
+                  ),
+                  const SizedBox(height: 12)
+                ],
               ),
             ],
           ),
           const SizedBox(height: 5),
           Text(
             dateRecorded,
-            style: TextStyle(fontSize: 14, color: greyColor.withOpacity(.4)),
+            style: const TextStyle(fontSize: 14, color: greyColor),
           ),
-          const SizedBox(height: 10),
-          if (description.isNotEmpty)
-            Text(
-              description,
-              style: const TextStyle(fontSize: 12, color: greyColor),
-            )
         ],
       ),
     );
