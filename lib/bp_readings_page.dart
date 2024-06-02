@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tunza_presha/components/app_button.dart';
 import 'package:tunza_presha/components/bp_fiters_widget.dart';
 import 'package:tunza_presha/components/bp_reading_item.dart';
 import 'package:tunza_presha/constants/color_constants.dart';
 import 'package:tunza_presha/constants/string_constants.dart';
 import 'package:tunza_presha/data/app_data.dart';
-import 'package:tunza_presha/routes.dart';
+import 'package:tunza_presha/router/routes.dart';
 
 class BPReadingPage extends StatelessWidget {
   const BPReadingPage({super.key});
@@ -23,22 +22,20 @@ class BPReadingPage extends StatelessWidget {
         title: const Center(
           child: Text(
             bpReadingsTitle,
-            style: TextStyle(
-              color: primaryColor,
-            ),
+            style: TextStyle(color: primaryColor),
           ),
         ),
         // ),
         // floatingActionButton: PrimaryButton(
         //   onPressed: () {
-        //     Navigator.pushNamed(context, newReadingPageRoute);
+        //     Navigator.pushNamed(context, AppRoutes.newReadingPageRoute);
         //   },
         //   text: "Add Pressure Reading",
       ),
       floatingActionButton: TextButton(
         onPressed: () {
           //go to new_reading_page
-          Navigator.pushNamed(context, newReadingPageRoute);
+          Navigator.pushNamed(context, AppRoutes.newReadingPageRoute);
         },
         style: const ButtonStyle(
             fixedSize: MaterialStatePropertyAll(Size(362, 56)),
@@ -52,11 +49,7 @@ class BPReadingPage extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         child: ListView(
           children: [
-            const Center(
-              child: Text(
-                bpReadingsDescription,
-              ),
-            ),
+            const Center(child: Text(bpReadingsDescription)),
             const SizedBox(height: 10),
             const BPFiltersWidget(),
             const SizedBox(height: 10),
@@ -64,7 +57,7 @@ class BPReadingPage extends StatelessWidget {
               (reading) {
                 return BPReadingItem(
                   reading: "${reading["systole"]}/${reading["diastole"]}",
-                  dateRecorded: reading["systole"],
+                  dateRecorded: reading["date"],
                   status: reading["status"],
                   description: reading["notes"],
                 );

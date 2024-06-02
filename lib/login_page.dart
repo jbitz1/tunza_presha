@@ -1,7 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tunza_presha/firebase_auth_services.dart';
-import 'package:tunza_presha/routes.dart';
+import 'package:tunza_presha/components/buttons.dart';
+import 'package:tunza_presha/components/custom_text_field.dart';
+import 'package:tunza_presha/components/platform_loader.dart';
+import 'package:tunza_presha/constants/color_constants.dart';
+import 'package:tunza_presha/router/routes.dart';
+import 'package:tunza_presha/utils.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -11,35 +14,19 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginPageState extends State<LoginPage> {
+  bool isLoading = false;
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final FirebaseAuthService auth = FirebaseAuthService();
-
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
-
-    @override
-    void dispose() {
-      emailController.dispose();
-      passwordController.dispose();
-      super.dispose();
-    }
-
-    void signIn() async {
-      String email = emailController.text;
-      String password = passwordController.text;
-
-      User? user = await auth.signInWithEmailAndPassword(email, password);
-      if (user != null) {
-        debugPrint("User is successfully signed in");
-        // Navigate to the home page after successful sign-up
-        Navigator.pushNamed(context, homePageRoute);
-      } else {
-        // Handle sign-up failure
-        debugPrint("Sign-In failed");
-      }
-    }
-
     return Scaffold(
       // backgroundColor: Colors.grey[300],
       body: SafeArea(
@@ -49,96 +36,97 @@ class LoginPageState extends State<LoginPage> {
             children: [
               const Text(
                 "Welcome back",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
-              ),
-              const SizedBox(height: 50),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      border: Border.all(
-                        color: Colors.white,
-                      ),
-                      borderRadius: BorderRadius.circular(12)),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                    child: TextField(
-                      controller: emailController,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Email",
-                      ),
-                    ),
-                  ),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 35,
+                  color: primaryColor,
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      border: Border.all(
-                        color: Colors.white,
-                      ),
-                      borderRadius: BorderRadius.circular(12)),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                    child: TextField(
-                      controller: passwordController,
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Password",
-                      ),
-                    ),
-                  ),
+              const Text(
+                "Sign In to continue",
+                style: TextStyle(
+                  fontSize: 14,
+                  color: greyColor,
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 30),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.deepPurple,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Center(
-                    child: GestureDetector(
-                      onTap: signIn,
-                      child: const Text(
-                        "Sign In",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 28,
-                        ),
-                      ),
-                    ),
-                  ),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: CustomTextField(
+                  textController: emailController,
+                  inputType: TextInputType.emailAddress,
+                  labelText: "Email Address",
+                  hintText: "Enter your email address",
                 ),
               ),
-              const SizedBox(height: 25),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, registerUserPageRoute);
-                    },
-                    child: const Text(
-                      "Sign Up",
-                      style: TextStyle(
-                          color: Colors.blue, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-              )
+              const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: CustomTextField(
+                  textController: passwordController,
+                  inputType: TextInputType.visiblePassword,
+                  labelText: "Password",
+                  hintText: "Enter your password",
+                  obscureText: true,
+                ),
+              ),
+              const SizedBox(height: 20),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                width: double.infinity,
+                child: isLoading
+                    ? const PlatformLoader()
+                    : PrimaryButton(
+                        text: "Sign In",
+                        onPressed: () async {
+                          setState(() {
+                            isLoading = true;
+                          });
+
+                          final bool isSignedIn = await signIn(
+                              emailAddress: emailController.text,
+                              password: passwordController.text);
+
+                          if (isSignedIn) {
+                            setState(() {
+                              isLoading = false;
+                            });
+                            // true
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content:
+                                    Text('Welcome back. You are now signed in'),
+                              ),
+                            );
+                            Navigator.of(context)
+                                .pushNamed(AppRoutes.homePageRoute);
+                          } else {
+                            setState(() {
+                              isLoading = false;
+                            });
+
+                            // false
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Invalid Credentials. Try again'),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+              ),
+              const SizedBox(height: 15),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                width: double.infinity,
+                child: SecondaryButton(
+                  text: "Sign Up",
+                  onPressed: () {
+                    Navigator.pushNamed(
+                        context, AppRoutes.registerUserPageRoute);
+                  },
+                ),
+              ),
             ],
           ),
         ),
