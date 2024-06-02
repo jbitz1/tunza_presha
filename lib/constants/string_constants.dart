@@ -6,3 +6,4 @@ const String thisMonthString = 'This Month';
 const String lastMonthString = 'Last Month';
 const String lastThreeMonthsString = 'Last 3 months';
 const String lastSixMonthsString = 'Last 6 months';
+const String unknown = 'UNKNOWN';

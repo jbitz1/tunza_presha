@@ -1,19 +1,3 @@
-List<dynamic> users = [
-  <String, dynamic>{
-    "date_of_birth": "9/30/2003",
-    "first_name": "Jason",
-    "gender": "Male",
-    "last_name": "Bitega"
-  },
-  <String, dynamic>{
-    "date_of_birth": "9/30/2003",
-    "first_name": "Abiud",
-    "gender": "Male",
-    "last_name": "Orina"
-  }
-];
-
-
 // TODO!!(jason): read up on flutter Maps
 List<Map<String, dynamic>> bpReadings = [
   <String, dynamic>{
