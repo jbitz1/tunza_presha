@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:tunza_presha/constants/color_constants.dart';
 import 'package:tunza_presha/constants/database_constants.dart';
 import 'package:tunza_presha/constants/validator_constants.dart';
-import 'package:tunza_presha/firebase_auth_services.dart';
+import 'package:tunza_presha/firebase/firebase_auth_services.dart';
 
 void createUser() {
   final db = FirebaseFirestore.instance;

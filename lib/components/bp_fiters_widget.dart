@@ -56,9 +56,11 @@ class BPFiltersWidget extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 8),
             child: TextButton(
               style: ButtonStyle(
-                  fixedSize: MaterialStatePropertyAll(Size(102, 20)),
-                  backgroundColor: MaterialStatePropertyAll(
-                      Color.fromARGB(50, 105, 116, 137))),
+                fixedSize: MaterialStatePropertyAll(Size(102, 20)),
+                backgroundColor: MaterialStatePropertyAll(
+                  Color.fromARGB(50, 105, 116, 137),
+                ),
+              ),
               onPressed: null,
               child: Text(
                 lastThreeMonthsString,
@@ -73,9 +75,11 @@ class BPFiltersWidget extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 8),
             child: TextButton(
               style: ButtonStyle(
-                  fixedSize: MaterialStatePropertyAll(Size(102, 20)),
-                  backgroundColor: MaterialStatePropertyAll(
-                      Color.fromARGB(50, 105, 116, 137))),
+                fixedSize: MaterialStatePropertyAll(Size(102, 20)),
+                backgroundColor: MaterialStatePropertyAll(
+                  Color.fromARGB(50, 105, 116, 137),
+                ),
+              ),
               onPressed: null,
               child: Text(
                 lastSixMonthsString,

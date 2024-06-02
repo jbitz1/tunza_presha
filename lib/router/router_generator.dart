@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tunza_presha/bp_readings_page.dart';
-import 'package:tunza_presha/home_page.dart';
-import 'package:tunza_presha/login_page.dart';
-import 'package:tunza_presha/new_reading_page.dart';
-import 'package:tunza_presha/register_user_page.dart';
-import 'package:tunza_presha/reminder_page.dart';
+import 'package:tunza_presha/pages/bp_readings_page.dart';
+import 'package:tunza_presha/pages/home_page.dart';
+import 'package:tunza_presha/pages/login_page.dart';
+import 'package:tunza_presha/pages/new_reading_page.dart';
+import 'package:tunza_presha/pages/register_user_page.dart';
+import 'package:tunza_presha/pages/reminder_page.dart';
 import 'package:tunza_presha/router/routes.dart';
 
 class RouteGenerator {
@@ -15,32 +15,32 @@ class RouteGenerator {
     // final dynamic args = settings.arguments;
 
     switch (settings.name) {
-      case AppRoutes.homePageRoute:
+      case AppRoutes.homePage:
         return MaterialPageRoute<HomePage>(
           builder: (BuildContext context) => const HomePage(),
         );
 
-      case AppRoutes.newReadingPageRoute:
+      case AppRoutes.newReadingPage:
         return MaterialPageRoute<NewReadingPage>(
           builder: (BuildContext context) => const NewReadingPage(),
         );
 
-      case AppRoutes.bpReadingPageRoute:
+      case AppRoutes.bpReadingPage:
         return MaterialPageRoute<BPReadingPage>(
           builder: (BuildContext context) => const BPReadingPage(),
         );
 
-      case AppRoutes.reminderPageRoute:
+      case AppRoutes.reminderPage:
         return MaterialPageRoute<ReminderPage>(
           builder: (BuildContext context) => const ReminderPage(),
         );
 
-      case AppRoutes.loginPageRoute:
+      case AppRoutes.loginPage:
         return MaterialPageRoute<LoginPage>(
           builder: (BuildContext context) => const LoginPage(),
         );
 
-      case AppRoutes.registerUserPageRoute:
+      case AppRoutes.registerUserPage:
         return MaterialPageRoute<RegisterUserPage>(
           builder: (BuildContext context) => const RegisterUserPage(),
         );

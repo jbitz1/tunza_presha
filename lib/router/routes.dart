@@ -7,10 +7,10 @@
 */
 
 class AppRoutes {
-  static const String homePageRoute = "/homePageRoute";
-  static const String newReadingPageRoute = "/newReadingPageRoute";
-  static const String bpReadingPageRoute = "/bpReadingPageRoute";
-  static const String reminderPageRoute = "/reminderPageRoute";
-  static const String loginPageRoute = "/loginPageRoute";
-  static const String registerUserPageRoute = "/registerUserPageRoute";
+  static const String homePage = "/homePage";
+  static const String newReadingPage = "/newReadingPage";
+  static const String bpReadingPage = "/bpReadingPage";
+  static const String reminderPage = "/reminderPage";
+  static const String loginPage = "/loginPage";
+  static const String registerUserPage = "/registerUserPage";
 }

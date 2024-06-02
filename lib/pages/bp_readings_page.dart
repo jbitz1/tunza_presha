@@ -35,7 +35,7 @@ class BPReadingPage extends StatelessWidget {
       floatingActionButton: TextButton(
         onPressed: () {
           //go to new_reading_page
-          Navigator.pushNamed(context, AppRoutes.newReadingPageRoute);
+          Navigator.pushNamed(context, AppRoutes.newReadingPage);
         },
         style: const ButtonStyle(
             fixedSize: MaterialStatePropertyAll(Size(362, 56)),

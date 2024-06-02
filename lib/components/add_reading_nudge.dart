@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tunza_presha/components/buttons.dart';
 import 'package:tunza_presha/constants/color_constants.dart';
+import 'package:tunza_presha/router/routes.dart';
 
 class AddReadingNudge extends StatelessWidget {
   const AddReadingNudge({super.key});
@@ -37,7 +38,9 @@ class AddReadingNudge extends StatelessWidget {
           const SizedBox(height: 15),
           SecondaryButton(
             text: "Add New Reading",
-            onPressed: () async {},
+            onPressed: () async {
+              Navigator.pushNamed(context, AppRoutes.newReadingPage);
+            },
           ),
         ],
       ),

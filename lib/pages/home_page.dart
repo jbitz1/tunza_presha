@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tunza_presha/components/add_reading_nudge.dart';
 import 'package:tunza_presha/components/bp_reading_card.dart';
 import 'package:tunza_presha/components/reminder_card.dart';
-import 'package:tunza_presha/components/user_profile_icon.dart';
+import 'package:tunza_presha/components/user_initials_widget.dart';
 import 'package:tunza_presha/constants/color_constants.dart';
 import 'package:tunza_presha/router/routes.dart';
 
@@ -117,8 +117,7 @@ class HomePage extends StatelessWidget {
                   TextButton(
                     child: const Text("View more"),
                     onPressed: () {
-                      Navigator.pushNamed(
-                          context, AppRoutes.bpReadingPageRoute);
+                      Navigator.pushNamed(context, AppRoutes.bpReadingPage);
                     },
                   )
                 ],

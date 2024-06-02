@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tunza_presha/login_page.dart';
+import 'package:tunza_presha/pages/login_page.dart';
 import 'package:tunza_presha/router/router_generator.dart';
 import 'package:tunza_presha/router/routes.dart';
 
@@ -15,7 +15,7 @@ class MyAppWidget extends StatelessWidget {
       onGenerateRoute: RouteGenerator.generateRoute,
       // TODO(abiud): check if the user is logged in and change
       // this route to be the home page
-      initialRoute: AppRoutes.homePageRoute,
+      initialRoute: AppRoutes.homePage,
     );
   }
 }
