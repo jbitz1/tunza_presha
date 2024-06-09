@@ -12,7 +12,7 @@ import 'package:tunza_presha/state/bp_readings_state.dart';
 part 'app_state.freezed.dart';
 part 'app_state.g.dart';
 
-@freezed
+@Freezed(makeCollectionsUnmodifiable: false)
 class AppState with _$AppState {
   const factory AppState({
     AuthState? authState,

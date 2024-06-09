@@ -54,10 +54,11 @@ class BPReadingItem extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 5),
-          Text(
-            dateRecorded,
-            style: TextStyle(fontSize: 14, color: greyColor.withOpacity(.4)),
-          ),
+          humanizeDate(loadedDate: dateRecorded, showTime: true),
+          // Text(
+          //   dateRecorded,
+          //   style: TextStyle(fontSize: 14, color: greyColor.withOpacity(.4)),
+          // ),
           const SizedBox(height: 10),
           if (description.isNotEmpty)
             Text(

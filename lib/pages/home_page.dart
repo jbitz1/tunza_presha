@@ -142,7 +142,9 @@ class HomePage extends StatelessWidget {
                   ),
                   TextButton(
                     child: const Text("View more"),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, AppRoutes.reminderPage);
+                    },
                   )
                 ],
               ),

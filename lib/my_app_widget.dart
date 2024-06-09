@@ -27,7 +27,7 @@ class MyAppWidget extends StatelessWidget {
               // TODO(abiud): check if the user is logged in and change
               // this route to be the home page
               initialRoute:
-                  isSignedIn ? AppRoutes.homePage : AppRoutes.loginPage);
+                  isSignedIn ? AppRoutes.homePage : AppRoutes.homePage);
         },
       ),
     );

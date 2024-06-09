@@ -3,8 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tunza_presha/constants/color_constants.dart';
 import 'package:tunza_presha/constants/database_constants.dart';
+import 'package:tunza_presha/constants/string_constants.dart';
 import 'package:tunza_presha/constants/validator_constants.dart';
 import 'package:tunza_presha/firebase/firebase_auth_services.dart';
+import 'package:intl/intl.dart';
 
 void createUser() {
   final db = FirebaseFirestore.instance;
@@ -136,4 +138,37 @@ String extractNamesInitials({required String name}) {
     return initials.toString().substring(0, 2);
   }
   return parts.first.split('')[0].toUpperCase();
+}
+
+Widget humanizeDate({
+  required String loadedDate,
+  TextStyle? dateTextStyle,
+  bool showTime = false,
+  bool showYear = true,
+  bool showMonthDate = true,
+}) {
+  if (loadedDate == unknown || loadedDate.isEmpty) {
+    return const SizedBox();
+  }
+
+  final DateTime parsedDate =
+      DateTime.tryParse(loadedDate)?.toLocal() ?? DateTime.now();
+  final DateFormat monthDateFormat = DateFormat(showMonthDate ? 'd MMM' : '');
+  final DateFormat yearDateFormat = DateFormat(showYear ? ' y' : '');
+  final DateFormat timeDateFormat = DateFormat(showTime ? ' h:mm a' : '');
+
+  final String formattedDate = monthDateFormat.format(parsedDate) +
+      yearDateFormat.format(parsedDate) +
+      timeDateFormat.format(parsedDate);
+
+  return Text(
+    formattedDate,
+    style: dateTextStyle ??
+        const TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w200,
+          color: greyColor,
+          fontStyle: FontStyle.italic,
+        ),
+  );
 }

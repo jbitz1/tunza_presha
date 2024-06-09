@@ -9,7 +9,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'auth_state.freezed.dart';
 part 'auth_state.g.dart';
 
-@freezed
+@Freezed(makeCollectionsUnmodifiable: false)
 class AuthState with _$AuthState {
   factory AuthState({
     @JsonKey(name: 'isSignedIn') bool? isSignedIn,

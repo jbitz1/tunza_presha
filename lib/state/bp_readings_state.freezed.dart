@@ -121,7 +121,7 @@ class __$$BPReadingsStateImplCopyWithImpl<$Res>
           : currentReading // ignore: cast_nullable_to_non_nullable
               as BPReading?,
       userReadings: freezed == userReadings
-          ? _value._userReadings
+          ? _value.userReadings
           : userReadings // ignore: cast_nullable_to_non_nullable
               as List<BPReading?>?,
     ));
@@ -135,8 +135,7 @@ class _$BPReadingsStateImpl
     implements _BPReadingsState {
   _$BPReadingsStateImpl(
       {@JsonKey(name: 'currentReading') this.currentReading,
-      @JsonKey(name: 'userReadings') final List<BPReading?>? userReadings})
-      : _userReadings = userReadings;
+      @JsonKey(name: 'userReadings') this.userReadings});
 
   factory _$BPReadingsStateImpl.fromJson(Map<String, dynamic> json) =>
       _$$BPReadingsStateImplFromJson(json);
@@ -144,16 +143,9 @@ class _$BPReadingsStateImpl
   @override
   @JsonKey(name: 'currentReading')
   final BPReading? currentReading;
-  final List<BPReading?>? _userReadings;
   @override
   @JsonKey(name: 'userReadings')
-  List<BPReading?>? get userReadings {
-    final value = _userReadings;
-    if (value == null) return null;
-    if (_userReadings is EqualUnmodifiableListView) return _userReadings;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
+  final List<BPReading?>? userReadings;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -177,13 +169,13 @@ class _$BPReadingsStateImpl
             (identical(other.currentReading, currentReading) ||
                 other.currentReading == currentReading) &&
             const DeepCollectionEquality()
-                .equals(other._userReadings, _userReadings));
+                .equals(other.userReadings, userReadings));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, currentReading,
-      const DeepCollectionEquality().hash(_userReadings));
+      const DeepCollectionEquality().hash(userReadings));
 
   @JsonKey(ignore: true)
   @override
