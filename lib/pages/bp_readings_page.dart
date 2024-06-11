@@ -1,6 +1,6 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tunza_presha/components/bp_fiters_widget.dart';
 import 'package:tunza_presha/components/bp_reading_item.dart';
 import 'package:tunza_presha/components/buttons.dart';
 import 'package:tunza_presha/constants/color_constants.dart';
@@ -17,6 +17,17 @@ class BPReadingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, AppRoutes.bpMetricsPage);
+              },
+              icon: const Icon(
+                CupertinoIcons.chart_bar,
+                color: primaryColor,
+                size: 30,
+              ))
+        ],
         leading: BackButton(
           onPressed: () {
             Navigator.pushNamed(context, AppRoutes.homePage);
@@ -48,8 +59,8 @@ class BPReadingPage extends StatelessWidget {
         child: ListView(
           children: [
             const Center(child: Text(bpReadingsDescription)),
-            const SizedBox(height: 10),
-            const BPFiltersWidget(),
+            // const SizedBox(height: 10),
+            // const BPFiltersWidget(),
             const SizedBox(height: 10),
             StoreConnector<AppState, UserReadingsViewModel>(
               converter: (Store<AppState> store) =>
@@ -83,16 +94,6 @@ class BPReadingPage extends StatelessWidget {
                 );
               },
             ),
-            // ...bpReadings.map(
-            //   (reading) {
-            //     return BPReadingItem(
-            //       reading: "${reading["systole"]}/${reading["diastole"]}",
-            //       dateRecorded: reading["date"],
-            //       status: reading["status"],
-            //       description: reading["notes"],
-            //     );
-            //   },
-            // ),
           ],
         ),
       ),

@@ -8,3 +8,5 @@ const String lastMonthString = 'Last Month';
 const String lastThreeMonthsString = 'Last 3 months';
 const String lastSixMonthsString = 'Last 6 months';
 const String unknown = 'UNKNOWN';
+const String metricsTitle = 'Metrics';
+const String metricsDescription = 'Your BP analyzed over time';
