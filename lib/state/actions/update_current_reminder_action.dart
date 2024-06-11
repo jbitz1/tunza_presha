@@ -18,8 +18,7 @@ class UpdateCurrentReminderAction extends ReduxAction<AppState> {
       title: title ?? state.remindersState!.currentReminder!.title,
       description:
           description ?? state.remindersState!.currentReminder!.description,
-      dueDate: DateTime.now().add(const Duration(days: 5)).toIso8601String(),
-      // dueDate: dueDate ?? state.remindersState!.currentReminder!.dueDate,
+      dueDate: dueDate ?? state.remindersState!.currentReminder!.dueDate,
     );
   }
 }

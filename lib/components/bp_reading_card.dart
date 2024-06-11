@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tunza_presha/constants/color_constants.dart';
 import 'package:tunza_presha/utils.dart';
 
 class BPReadingCard extends StatelessWidget {

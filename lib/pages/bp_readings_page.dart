@@ -2,6 +2,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:tunza_presha/components/bp_fiters_widget.dart';
 import 'package:tunza_presha/components/bp_reading_item.dart';
+import 'package:tunza_presha/components/buttons.dart';
 import 'package:tunza_presha/constants/color_constants.dart';
 import 'package:tunza_presha/constants/string_constants.dart';
 import 'package:tunza_presha/router/routes.dart';
@@ -16,10 +17,10 @@ class BPReadingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const BackButton(
-          // onPressed: () {
-          //   Navigator.pushNamed(context, '/home_page');
-          // },
+        leading: BackButton(
+          onPressed: () {
+            Navigator.pushNamed(context, AppRoutes.homePage);
+          },
           color: primaryColor,
         ),
         title: const Center(
@@ -28,26 +29,20 @@ class BPReadingPage extends StatelessWidget {
             style: TextStyle(color: primaryColor),
           ),
         ),
-        // ),
-        // floatingActionButton: PrimaryButton(
-        //   onPressed: () {
-        //     Navigator.pushNamed(context, AppRoutes.newReadingPageRoute);
-        //   },
-        //   text: "Add Pressure Reading",
       ),
-      floatingActionButton: TextButton(
-        onPressed: () {
-          //go to new_reading_page
-          Navigator.pushNamed(context, AppRoutes.newReadingPage);
-        },
-        style: const ButtonStyle(
-            fixedSize: MaterialStatePropertyAll(Size(362, 56)),
-            backgroundColor: MaterialStatePropertyAll(primaryColor)),
-        child: const Text(
-          "Add Pressure Reading",
-          style: TextStyle(fontSize: 20, color: Colors.white),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SizedBox(
+          width: double.infinity,
+          child: PrimaryButton(
+            onPressed: () {
+              Navigator.pushNamed(context, AppRoutes.newReadingPage);
+            },
+            text: "Add Pressure Reading",
+          ),
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Container(
         padding: const EdgeInsets.all(8),
         child: ListView(

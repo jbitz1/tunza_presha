@@ -47,7 +47,10 @@ class ReminderCard extends StatelessWidget {
             style: const TextStyle(fontSize: 14, color: greyColor),
           ),
           const SizedBox(height: 10),
-          humanizeDate(loadedDate: dueAt, showTime: true, showMonthDate: false)
+          humanizeDate(
+            loadedDate: dueAt,
+            showTime: true,
+          )
         ],
       ),
     );

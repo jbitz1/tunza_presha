@@ -1,7 +1,5 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:tunza_presha/components/bp_fiters_widget.dart';
-import 'package:tunza_presha/components/bp_reading_item.dart';
 import 'package:tunza_presha/components/buttons.dart';
 import 'package:tunza_presha/components/reminder_card.dart';
 import 'package:tunza_presha/constants/color_constants.dart';
@@ -9,9 +7,7 @@ import 'package:tunza_presha/constants/string_constants.dart';
 import 'package:tunza_presha/router/routes.dart';
 import 'package:tunza_presha/state/app_state.dart';
 import 'package:tunza_presha/state/reminder.dart';
-import 'package:tunza_presha/state/view_models/bp_readings_view_model.dart';
 import 'package:tunza_presha/state/view_models/reminders_view_model.dart';
-import 'package:tunza_presha/utils.dart';
 
 class ListRemindersPage extends StatelessWidget {
   const ListRemindersPage({super.key});
@@ -22,7 +18,8 @@ class ListRemindersPage extends StatelessWidget {
       appBar: AppBar(
         leading: BackButton(
           onPressed: () {
-            Navigator.pop(context);
+            // Navigator.pop(context);
+            Navigator.pushNamed(context, AppRoutes.homePage);
           },
           color: primaryColor,
         ),

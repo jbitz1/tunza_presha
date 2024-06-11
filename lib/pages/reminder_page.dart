@@ -1,25 +1,15 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:tunza_presha/components/buttons.dart';
+import 'package:tunza_presha/components/custom_date_time_picker.dart';
 import 'package:tunza_presha/components/custom_text_field.dart';
+import 'package:tunza_presha/constants/color_constants.dart';
+import 'package:tunza_presha/constants/string_constants.dart';
 import 'package:tunza_presha/router/routes.dart';
-import 'package:tunza_presha/state/actions/update_current_reading_action.dart';
 import 'package:tunza_presha/state/actions/update_current_reminder_action.dart';
 import 'package:tunza_presha/state/app_state.dart';
 import 'package:tunza_presha/state/view_models/reminders_view_model.dart';
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: const ReminderPage(),
-      theme: ThemeData(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
+import 'package:tunza_presha/utils.dart';
 
 class ReminderPage extends StatelessWidget {
   const ReminderPage({super.key});
@@ -39,11 +29,12 @@ class ReminderPage extends StatelessWidget {
           ),
         ),
       ),
-      body: StoreConnector<AppState, UserRemindersViewModel>(
+      body: StoreConnector<AppState, CurrentReminderViewModel>(
           converter: (Store<AppState> store) =>
-              UserRemindersViewModel.fromStore(store),
+              CurrentReminderViewModel.fromStore(store),
+          onInit: (store) => store.dispatch(ResetCurrentReminderAction()),
           builder: (BuildContext context,
-              UserRemindersViewModel userRemindersViewModel) {
+              CurrentReminderViewModel currentReminderViewModel) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -71,6 +62,55 @@ class ReminderPage extends StatelessWidget {
                     },
                   ),
                 ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  child: Text(
+                    "Date and Time",
+                    style: TextStyle(fontSize: 14, color: greyColor),
+                  ),
+                ),
+                (currentReminderViewModel.currentReminder!.dueDate != unknown)
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            humanizeDate(
+                              loadedDate: currentReminderViewModel
+                                      .currentReminder?.dueDate ??
+                                  unknown,
+                              showTime: true,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: CustomDateTimePicker(
+                                label: "Change Date and Time",
+                                onConfirm: (DateTime dateTime) {
+                                  StoreProvider.dispatch<AppState>(
+                                    context,
+                                    UpdateCurrentReminderAction(
+                                      dueDate: dateTime.toIso8601String(),
+                                    ),
+                                  );
+                                },
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CustomDateTimePicker(
+                          onConfirm: (DateTime dateTime) {
+                            StoreProvider.dispatch<AppState>(
+                              context,
+                              UpdateCurrentReminderAction(
+                                dueDate: dateTime.toIso8601String(),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: SizedBox(
@@ -78,7 +118,8 @@ class ReminderPage extends StatelessWidget {
                     child: PrimaryButton(
                       onPressed: () {
                         context.dispatch(SaveCurrentReminderAction());
-                        Navigator.pop(context);
+                        Navigator.pushNamed(
+                            context, AppRoutes.listRemindersPage);
                       },
                       text: 'Save Reminder',
                     ),
