@@ -2,11 +2,15 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:tunza_presha/components/bp_fiters_widget.dart';
 import 'package:tunza_presha/components/bp_reading_item.dart';
+import 'package:tunza_presha/components/buttons.dart';
+import 'package:tunza_presha/components/reminder_card.dart';
 import 'package:tunza_presha/constants/color_constants.dart';
 import 'package:tunza_presha/constants/string_constants.dart';
 import 'package:tunza_presha/router/routes.dart';
 import 'package:tunza_presha/state/app_state.dart';
+import 'package:tunza_presha/state/reminder.dart';
 import 'package:tunza_presha/state/view_models/bp_readings_view_model.dart';
+import 'package:tunza_presha/state/view_models/reminders_view_model.dart';
 import 'package:tunza_presha/utils.dart';
 
 class ListRemindersPage extends StatelessWidget {
@@ -16,10 +20,10 @@ class ListRemindersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const BackButton(
-          // onPressed: () {
-          //   Navigator.pushNamed(context, '/home_page');
-          // },
+        leading: BackButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
           color: primaryColor,
         ),
         title: const Center(
@@ -28,76 +32,57 @@ class ListRemindersPage extends StatelessWidget {
             style: TextStyle(color: primaryColor),
           ),
         ),
-        // ),
-        // floatingActionButton: PrimaryButton(
-        //   onPressed: () {
-        //     Navigator.pushNamed(context, AppRoutes.newReadingPageRoute);
-        //   },
-        //   text: "Add Pressure Reading",
       ),
-      floatingActionButton: TextButton(
-        onPressed: () {
-          //go to new_reading_page
-          Navigator.pushNamed(context, AppRoutes.reminderPage);
-        },
-        style: const ButtonStyle(
-            fixedSize: MaterialStatePropertyAll(Size(362, 56)),
-            backgroundColor: MaterialStatePropertyAll(primaryColor)),
-        child: const Text(
-          "Add reminder",
-          style: TextStyle(fontSize: 20, color: Colors.white),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SizedBox(
+          width: double.infinity,
+          child: PrimaryButton(
+            onPressed: () {
+              Navigator.pushNamed(context, AppRoutes.reminderPage);
+            },
+            text: "Add Reminder",
+          ),
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Container(
         padding: const EdgeInsets.all(8),
         child: ListView(
+          shrinkWrap: true,
           padding: const EdgeInsets.all(20),
           children: [
             const Text(remindersDescription),
             const SizedBox(height: 10),
             const SizedBox(height: 10),
-            StoreConnector<AppState, UserReadingsViewModel>(
+            StoreConnector<AppState, UserRemindersViewModel>(
               converter: (Store<AppState> store) =>
-                  UserReadingsViewModel.fromStore(store),
+                  UserRemindersViewModel.fromStore(store),
               builder: (BuildContext context,
-                  UserReadingsViewModel userReadingsViewModel) {
-                if (userReadingsViewModel.userReadings?.isEmpty ?? true) {
+                  UserRemindersViewModel userRemindersViewModel) {
+                if (userRemindersViewModel.userReminders?.isEmpty ?? true) {
                   return const Text('No Reminders found');
                 }
                 return ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: userReadingsViewModel.userReadings?.length ?? 0,
+                  itemCount: userRemindersViewModel.userReminders?.length ?? 0,
                   itemBuilder: (context, i) {
-                    final reading = userReadingsViewModel.userReadings?[i];
+                    final Reminder? reminder =
+                        userRemindersViewModel.userReminders?[i];
+                    final String title = reminder?.title ?? '';
+                    final String description = reminder?.description ?? '';
+                    final String dueDate = reminder?.dueDate ?? '';
 
-                    final String systole = reading?.systole ?? "";
-                    final String diastole = reading?.diastole ?? "";
-                    final String bp = "$systole/$diastole";
-                    final String note = reading?.note ?? "";
-                    final String date = reading?.date ?? "";
-                    final String status = getStatus(reading!);
-
-                    return BPReadingItem(
-                      reading: bp,
-                      dateRecorded: date,
-                      status: status,
-                      description: note,
+                    return ReminderCard(
+                      title: title,
+                      description: description,
+                      dueAt: dueDate,
                     );
                   },
                 );
               },
             ),
-            // ...bpReadings.map(
-            //   (reading) {
-            //     return BPReadingItem(
-            //       reading: "${reading["systole"]}/${reading["diastole"]}",
-            //       dateRecorded: reading["date"],
-            //       status: reading["status"],
-            //       description: reading["notes"],
-            //     );
-            //   },
-            // ),
           ],
         ),
       ),

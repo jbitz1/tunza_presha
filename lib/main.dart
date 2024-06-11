@@ -12,6 +12,10 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+  /// Set navigator key used by async redux
+  NavigateAction.setNavigatorKey(navigatorKey);
   final StateDatabase stateDB = StateDatabase(dataBaseName: DatabaseName);
   await stateDB.init();
 

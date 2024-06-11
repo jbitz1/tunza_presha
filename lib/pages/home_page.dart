@@ -6,7 +6,6 @@ import 'package:tunza_presha/components/reminder_card.dart';
 import 'package:tunza_presha/components/user_initials_widget.dart';
 import 'package:tunza_presha/constants/color_constants.dart';
 import 'package:tunza_presha/router/routes.dart';
-import 'package:tunza_presha/state/actions/update_current_reading_action.dart';
 import 'package:tunza_presha/state/app_state.dart';
 import 'package:tunza_presha/state/bp_reading.dart';
 import 'package:tunza_presha/state/reminder.dart';
@@ -27,13 +26,13 @@ class HomePage extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         "Welcome back, Jason",
                         style: TextStyle(
                           fontSize: 18,
@@ -41,15 +40,11 @@ class HomePage extends StatelessWidget {
                           color: primaryColor,
                         ),
                       ),
-                      SizedBox(height: 5),
-                      // Text(
-                      //   "Friday, 17 Feb",
-                      //   style: TextStyle(
-                      //       fontSize: 14, color: greyColor.withOpacity(.4)),
-                      // )
+                      const SizedBox(height: 5),
+                      humanizeDate(loadedDate: DateTime.now().toIso8601String())
                     ],
                   ),
-                  UserInitialsWidget(name: 'Jason Bitega'),
+                  const UserInitialsWidget(name: 'Jason Bitega'),
                 ],
               ),
               const SizedBox(height: 20),
@@ -68,6 +63,8 @@ class HomePage extends StatelessWidget {
                   TextButton(
                     child: const Text("View more"),
                     onPressed: () {
+                      // context.dispatch(NavigateAction<AppState>.pushNamed(
+                      //     AppRoutes.bpReadingPage));
                       Navigator.pushNamed(context, AppRoutes.bpReadingPage);
                     },
                   )
@@ -117,6 +114,8 @@ class HomePage extends StatelessWidget {
                   TextButton(
                     child: const Text("View more"),
                     onPressed: () {
+                      // context.dispatch(NavigateAction<AppState>.pushNamed(
+                      //     AppRoutes.bpReadingPage));
                       Navigator.pushNamed(context, AppRoutes.listRemindersPage);
                     },
                   )
