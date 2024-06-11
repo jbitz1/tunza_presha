@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tunza_presha/pages/bp_readings_page.dart';
 import 'package:tunza_presha/pages/home_page.dart';
+import 'package:tunza_presha/pages/list_reminders_page.dart';
 import 'package:tunza_presha/pages/login_page.dart';
 import 'package:tunza_presha/pages/new_reading_page.dart';
 import 'package:tunza_presha/pages/register_user_page.dart';
@@ -43,6 +44,10 @@ class RouteGenerator {
       case AppRoutes.registerUserPage:
         return MaterialPageRoute<RegisterUserPage>(
           builder: (BuildContext context) => const RegisterUserPage(),
+        );
+      case AppRoutes.listRemindersPage:
+        return MaterialPageRoute<ListRemindersPage>(
+          builder: (BuildContext context) => const ListRemindersPage(),
         );
 
       default:

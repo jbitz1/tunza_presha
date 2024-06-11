@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tunza_presha/constants/color_constants.dart';
+import 'package:tunza_presha/utils.dart';
 
 class ReminderCard extends StatelessWidget {
   const ReminderCard({
@@ -46,14 +47,7 @@ class ReminderCard extends StatelessWidget {
             style: const TextStyle(fontSize: 14, color: greyColor),
           ),
           const SizedBox(height: 10),
-          Text(
-            dueAt,
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-              color: primaryColor,
-            ),
-          ),
+          humanizeDate(loadedDate: dueAt, showTime: true, showMonthDate: false)
         ],
       ),
     );

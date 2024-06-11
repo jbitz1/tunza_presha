@@ -7,6 +7,7 @@ import 'package:tunza_presha/constants/string_constants.dart';
 import 'package:tunza_presha/constants/validator_constants.dart';
 import 'package:tunza_presha/firebase/firebase_auth_services.dart';
 import 'package:intl/intl.dart';
+import 'package:tunza_presha/state/bp_reading.dart';
 
 void createUser() {
   final db = FirebaseFirestore.instance;
@@ -41,6 +42,22 @@ See https://www.rcp.ac.uk/improving-care/resources/national-early-warning-score-
 and https://www.rcp.ac.uk/media/ctulqqbn/news2-executive-summary_0.pdf
 and https://www.ncbi.nlm.nih.gov/books/NBK570233/table/ch1.tab1/
 */
+
+String getStatus(BPReading reading) {
+    int systole = int.tryParse(reading.systole ?? '') ?? 0;
+    int diastole = int.tryParse(reading.diastole ?? '') ?? 0;
+
+    String systoleStatus = processSystoleBP(systole);
+    String diastoleStatus = processDiastoleBP(diastole);
+
+    if (systoleStatus == "ELEVATED" || diastoleStatus == "ELEVATED") {
+      return "ELEVATED";
+    } else if (systoleStatus == "NORMAL" && diastoleStatus == "NORMAL") {
+      return "NORMAL";
+    } else {
+      return "LOW";
+    }
+  }
 String processSystoleBP(int value) {
   if (value <= 119) {
     return "LOW";

@@ -50,7 +50,7 @@ class DatabaseMobile<T extends DatabaseExecutor> implements DatabaseBase<T> {
   Future<bool> isDatabaseEmpty() async {
     final int t1 = await countTableRecords(Tables.authState);
     final int t2 = await countTableRecords(Tables.bpReadingsState);
-    final int t3 = await countTableRecords(Tables.reminderState);
+    final int t3 = await countTableRecords(Tables.remindersState);
 
     final int counts = t1 + t2 + t3;
 

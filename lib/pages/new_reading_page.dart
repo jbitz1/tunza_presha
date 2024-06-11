@@ -4,7 +4,6 @@ import 'package:flutter/widgets.dart';
 import 'package:tunza_presha/components/bp_reading_item.dart';
 import 'package:tunza_presha/components/buttons.dart';
 import 'package:tunza_presha/components/custom_text_field.dart';
-import 'package:tunza_presha/data/app_data.dart';
 import 'package:tunza_presha/router/routes.dart';
 import 'package:tunza_presha/state/actions/update_current_reading_action.dart';
 import 'package:tunza_presha/state/app_state.dart';
@@ -14,22 +13,6 @@ import 'package:tunza_presha/utils.dart';
 
 class NewReadingPage extends StatelessWidget {
   const NewReadingPage({super.key});
-
-  // final TextEditingController _systoleController = TextEditingController();
-
-  // final TextEditingController _diastoleController = TextEditingController();
-
-  // final TextEditingController _pulseController = TextEditingController();
-
-  // final TextEditingController _notesController = TextEditingController();
-
-  // String reading = "";
-
-  // String dateRecorded = "";
-
-  // String status = "";
-
-  // String description = "";
 
   // @override
   @override
@@ -105,56 +88,6 @@ class NewReadingPage extends StatelessWidget {
                 },
               ),
             ),
-
-            // Container(
-            //   padding: const EdgeInsets.only(left: 20, right: 20),
-            //   child: const Text(
-            //     "Pulse",
-            //     style: TextStyle(fontSize: 16, color: Colors.black),
-            //   ),
-            // ),
-            // Padding(
-            //   padding: const EdgeInsets.all(15.0),
-            //   child: TextField(
-            //     controller: _pulseController,
-            //     keyboardType: TextInputType.number,
-            //     decoration: InputDecoration(
-            //       hintText: 'Enter pulse value',
-            //       hintStyle: const TextStyle(color: Colors.grey),
-            //       border: OutlineInputBorder(
-            //         borderRadius: BorderRadius.circular(8),
-            //         borderSide: const BorderSide(),
-            //       ),
-            //       fillColor: Colors.blueGrey[50],
-            //       filled: true,
-            //     ),
-            //   ),
-            // ),
-            // Container(
-            //   padding: const EdgeInsets.only(left: 20, right: 20),
-            //   child: const Text(
-            //     "Notes (Optional)",
-            //     style: TextStyle(fontSize: 16, color: Colors.black),
-            //   ),
-            // ),
-            // Padding(
-            //   padding: const EdgeInsets.all(15.0),
-            //   child: TextField(
-            //     controller: _notesController,
-            //     minLines: 1,
-            //     maxLines: 5,
-            //     decoration: InputDecoration(
-            //       hintText: 'Describe your reading',
-            //       hintStyle: const TextStyle(color: Colors.grey),
-            //       border: OutlineInputBorder(
-            //         borderRadius: BorderRadius.circular(8),
-            //         borderSide: const BorderSide(),
-            //       ),
-            //       fillColor: Colors.blueGrey[50],
-            //       filled: true,
-            //     ),
-            //   ),
-            // ),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: SizedBox(
@@ -186,11 +119,14 @@ class NewReadingPage extends StatelessWidget {
                     currentReadingsViewModel.currentReading?.note ?? "";
                 final String date =
                     currentReadingsViewModel.currentReading?.date ?? "";
+                final String status =
+                    getStatus(currentReadingsViewModel.currentReading!);
+                // final Color color = getVitalColor(status);
 
                 return BPReadingItem(
                   reading: reading,
                   dateRecorded: date,
-                  status: '',
+                  status: status,
                   description: note,
                 );
               },
@@ -200,4 +136,6 @@ class NewReadingPage extends StatelessWidget {
       ),
     );
   }
+
+  
 }

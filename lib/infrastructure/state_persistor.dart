@@ -10,6 +10,7 @@ import 'package:tunza_presha/infrastructure/tables.dart';
 import 'package:tunza_presha/state/app_state.dart';
 import 'package:tunza_presha/state/auth_state.dart';
 import 'package:tunza_presha/state/bp_readings_state.dart';
+import 'package:tunza_presha/state/reminders_state.dart';
 
 class StateDatabase implements PersistorPrinterDecorator<AppState> {
   StateDatabase({
@@ -60,7 +61,8 @@ class StateDatabase implements PersistorPrinterDecorator<AppState> {
 
     if (lastPersistedState == null ||
         lastPersistedState.authState != newState.authState ||
-        lastPersistedState.bpReadingsState != newState.bpReadingsState) {
+        lastPersistedState.bpReadingsState != newState.bpReadingsState ||
+        lastPersistedState.remindersState != newState.remindersState) {
       await persistState(
         newState,
         DatabaseMobile<Database>(
@@ -109,6 +111,10 @@ class StateDatabase implements PersistorPrinterDecorator<AppState> {
         data: newState.bpReadingsState!.toJson(),
         table: Tables.bpReadingsState,
       );
+      await database.saveState(
+        data: newState.remindersState!.toJson(),
+        table: Tables.remindersState,
+      );
     } catch (e) {
       // reportErrorToSentry(
       //   exception: e,
@@ -125,6 +131,9 @@ class StateDatabase implements PersistorPrinterDecorator<AppState> {
             AuthState.fromJson(await database.retrieveState(Tables.authState)),
         bpReadingsState: BPReadingsState.fromJson(
           await database.retrieveState(Tables.bpReadingsState),
+        ),
+        remindersState: RemindersState.fromJson(
+          await database.retrieveState(Tables.remindersState),
         ),
         wait: Wait(),
       );

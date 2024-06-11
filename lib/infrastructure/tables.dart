@@ -2,5 +2,5 @@
 enum Tables {
   authState,
   bpReadingsState,
-  reminderState
+  remindersState,
 }

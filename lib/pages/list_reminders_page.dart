@@ -9,8 +9,8 @@ import 'package:tunza_presha/state/app_state.dart';
 import 'package:tunza_presha/state/view_models/bp_readings_view_model.dart';
 import 'package:tunza_presha/utils.dart';
 
-class BPReadingPage extends StatelessWidget {
-  const BPReadingPage({super.key});
+class ListRemindersPage extends StatelessWidget {
+  const ListRemindersPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class BPReadingPage extends StatelessWidget {
         ),
         title: const Center(
           child: Text(
-            bpReadingsTitle,
+            "Reminders",
             style: TextStyle(color: primaryColor),
           ),
         ),
@@ -38,23 +38,23 @@ class BPReadingPage extends StatelessWidget {
       floatingActionButton: TextButton(
         onPressed: () {
           //go to new_reading_page
-          Navigator.pushNamed(context, AppRoutes.newReadingPage);
+          Navigator.pushNamed(context, AppRoutes.reminderPage);
         },
         style: const ButtonStyle(
             fixedSize: MaterialStatePropertyAll(Size(362, 56)),
             backgroundColor: MaterialStatePropertyAll(primaryColor)),
         child: const Text(
-          "Add Pressure Reading",
+          "Add reminder",
           style: TextStyle(fontSize: 20, color: Colors.white),
         ),
       ),
       body: Container(
         padding: const EdgeInsets.all(8),
         child: ListView(
+          padding: const EdgeInsets.all(20),
           children: [
-            const Center(child: Text(bpReadingsDescription)),
+            const Text(remindersDescription),
             const SizedBox(height: 10),
-            const BPFiltersWidget(),
             const SizedBox(height: 10),
             StoreConnector<AppState, UserReadingsViewModel>(
               converter: (Store<AppState> store) =>
@@ -62,7 +62,7 @@ class BPReadingPage extends StatelessWidget {
               builder: (BuildContext context,
                   UserReadingsViewModel userReadingsViewModel) {
                 if (userReadingsViewModel.userReadings?.isEmpty ?? true) {
-                  return const Text('No Readings found');
+                  return const Text('No Reminders found');
                 }
                 return ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),

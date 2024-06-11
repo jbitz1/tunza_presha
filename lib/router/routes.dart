@@ -13,4 +13,5 @@ class AppRoutes {
   static const String reminderPage = "/reminderPage";
   static const String loginPage = "/loginPage";
   static const String registerUserPage = "/registerUserPage";
+  static const String listRemindersPage = "/listRemindersPage";
 }

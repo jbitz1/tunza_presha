@@ -21,7 +21,8 @@ AppState _$AppStateFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$AppState {
   AuthState? get authState => throw _privateConstructorUsedError;
-  BPReadingsState? get bpReadingsState =>
+  BPReadingsState? get bpReadingsState => throw _privateConstructorUsedError;
+  RemindersState? get remindersState =>
       throw _privateConstructorUsedError; // UserState? userState,
   @JsonKey(includeFromJson: false)
   Wait? get wait => throw _privateConstructorUsedError;
@@ -40,10 +41,12 @@ abstract class $AppStateCopyWith<$Res> {
   $Res call(
       {AuthState? authState,
       BPReadingsState? bpReadingsState,
+      RemindersState? remindersState,
       @JsonKey(includeFromJson: false) Wait? wait});
 
   $AuthStateCopyWith<$Res>? get authState;
   $BPReadingsStateCopyWith<$Res>? get bpReadingsState;
+  $RemindersStateCopyWith<$Res>? get remindersState;
 }
 
 /// @nodoc
@@ -61,6 +64,7 @@ class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
   $Res call({
     Object? authState = freezed,
     Object? bpReadingsState = freezed,
+    Object? remindersState = freezed,
     Object? wait = freezed,
   }) {
     return _then(_value.copyWith(
@@ -72,6 +76,10 @@ class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
           ? _value.bpReadingsState
           : bpReadingsState // ignore: cast_nullable_to_non_nullable
               as BPReadingsState?,
+      remindersState: freezed == remindersState
+          ? _value.remindersState
+          : remindersState // ignore: cast_nullable_to_non_nullable
+              as RemindersState?,
       wait: freezed == wait
           ? _value.wait
           : wait // ignore: cast_nullable_to_non_nullable
@@ -102,6 +110,18 @@ class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
       return _then(_value.copyWith(bpReadingsState: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $RemindersStateCopyWith<$Res>? get remindersState {
+    if (_value.remindersState == null) {
+      return null;
+    }
+
+    return $RemindersStateCopyWith<$Res>(_value.remindersState!, (value) {
+      return _then(_value.copyWith(remindersState: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -115,12 +135,15 @@ abstract class _$$AppStateImplCopyWith<$Res>
   $Res call(
       {AuthState? authState,
       BPReadingsState? bpReadingsState,
+      RemindersState? remindersState,
       @JsonKey(includeFromJson: false) Wait? wait});
 
   @override
   $AuthStateCopyWith<$Res>? get authState;
   @override
   $BPReadingsStateCopyWith<$Res>? get bpReadingsState;
+  @override
+  $RemindersStateCopyWith<$Res>? get remindersState;
 }
 
 /// @nodoc
@@ -136,6 +159,7 @@ class __$$AppStateImplCopyWithImpl<$Res>
   $Res call({
     Object? authState = freezed,
     Object? bpReadingsState = freezed,
+    Object? remindersState = freezed,
     Object? wait = freezed,
   }) {
     return _then(_$AppStateImpl(
@@ -147,6 +171,10 @@ class __$$AppStateImplCopyWithImpl<$Res>
           ? _value.bpReadingsState
           : bpReadingsState // ignore: cast_nullable_to_non_nullable
               as BPReadingsState?,
+      remindersState: freezed == remindersState
+          ? _value.remindersState
+          : remindersState // ignore: cast_nullable_to_non_nullable
+              as RemindersState?,
       wait: freezed == wait
           ? _value.wait
           : wait // ignore: cast_nullable_to_non_nullable
@@ -161,6 +189,7 @@ class _$AppStateImpl with DiagnosticableTreeMixin implements _AppState {
   const _$AppStateImpl(
       {this.authState,
       this.bpReadingsState,
+      this.remindersState,
       @JsonKey(includeFromJson: false) this.wait});
 
   factory _$AppStateImpl.fromJson(Map<String, dynamic> json) =>
@@ -170,6 +199,8 @@ class _$AppStateImpl with DiagnosticableTreeMixin implements _AppState {
   final AuthState? authState;
   @override
   final BPReadingsState? bpReadingsState;
+  @override
+  final RemindersState? remindersState;
 // UserState? userState,
   @override
   @JsonKey(includeFromJson: false)
@@ -177,7 +208,7 @@ class _$AppStateImpl with DiagnosticableTreeMixin implements _AppState {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AppState(authState: $authState, bpReadingsState: $bpReadingsState, wait: $wait)';
+    return 'AppState(authState: $authState, bpReadingsState: $bpReadingsState, remindersState: $remindersState, wait: $wait)';
   }
 
   @override
@@ -187,6 +218,7 @@ class _$AppStateImpl with DiagnosticableTreeMixin implements _AppState {
       ..add(DiagnosticsProperty('type', 'AppState'))
       ..add(DiagnosticsProperty('authState', authState))
       ..add(DiagnosticsProperty('bpReadingsState', bpReadingsState))
+      ..add(DiagnosticsProperty('remindersState', remindersState))
       ..add(DiagnosticsProperty('wait', wait));
   }
 
@@ -199,13 +231,15 @@ class _$AppStateImpl with DiagnosticableTreeMixin implements _AppState {
                 other.authState == authState) &&
             (identical(other.bpReadingsState, bpReadingsState) ||
                 other.bpReadingsState == bpReadingsState) &&
+            (identical(other.remindersState, remindersState) ||
+                other.remindersState == remindersState) &&
             (identical(other.wait, wait) || other.wait == wait));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, authState, bpReadingsState, wait);
+  int get hashCode => Object.hash(
+      runtimeType, authState, bpReadingsState, remindersState, wait);
 
   @JsonKey(ignore: true)
   @override
@@ -225,6 +259,7 @@ abstract class _AppState implements AppState {
   const factory _AppState(
       {final AuthState? authState,
       final BPReadingsState? bpReadingsState,
+      final RemindersState? remindersState,
       @JsonKey(includeFromJson: false) final Wait? wait}) = _$AppStateImpl;
 
   factory _AppState.fromJson(Map<String, dynamic> json) =
@@ -234,6 +269,8 @@ abstract class _AppState implements AppState {
   AuthState? get authState;
   @override
   BPReadingsState? get bpReadingsState;
+  @override
+  RemindersState? get remindersState;
   @override // UserState? userState,
   @JsonKey(includeFromJson: false)
   Wait? get wait;

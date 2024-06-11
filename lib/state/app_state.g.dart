@@ -15,10 +15,15 @@ _$AppStateImpl _$$AppStateImplFromJson(Map<String, dynamic> json) =>
           ? null
           : BPReadingsState.fromJson(
               json['bpReadingsState'] as Map<String, dynamic>),
+      remindersState: json['remindersState'] == null
+          ? null
+          : RemindersState.fromJson(
+              json['remindersState'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$AppStateImplToJson(_$AppStateImpl instance) =>
     <String, dynamic>{
       'authState': instance.authState,
       'bpReadingsState': instance.bpReadingsState,
+      'remindersState': instance.remindersState,
     };

@@ -61,10 +61,8 @@ class BPReadingCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 5),
-          Text(
-            dateRecorded,
-            style: const TextStyle(fontSize: 14, color: greyColor),
-          ),
+          humanizeDate(
+              loadedDate: dateRecorded, showMonthDate: true, showTime: true),
         ],
       ),
     );

@@ -2,6 +2,7 @@
 const String bpReadingsTitle = "Blood Pressure";
 const String bpReadingsDescription =
     "Here are some units you have recorded in the past";
+const String remindersDescription = "Here are your reminders";
 const String thisMonthString = 'This Month';
 const String lastMonthString = 'Last Month';
 const String lastThreeMonthsString = 'Last 3 months';

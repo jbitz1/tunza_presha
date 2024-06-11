@@ -1,3 +1,4 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:tunza_presha/components/add_reading_nudge.dart';
 import 'package:tunza_presha/components/bp_reading_card.dart';
@@ -5,6 +6,13 @@ import 'package:tunza_presha/components/reminder_card.dart';
 import 'package:tunza_presha/components/user_initials_widget.dart';
 import 'package:tunza_presha/constants/color_constants.dart';
 import 'package:tunza_presha/router/routes.dart';
+import 'package:tunza_presha/state/actions/update_current_reading_action.dart';
+import 'package:tunza_presha/state/app_state.dart';
+import 'package:tunza_presha/state/bp_reading.dart';
+import 'package:tunza_presha/state/reminder.dart';
+import 'package:tunza_presha/state/view_models/bp_readings_view_model.dart';
+import 'package:tunza_presha/state/view_models/reminders_view_model.dart';
+import 'package:tunza_presha/utils.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -19,13 +27,13 @@ class HomePage extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         "Welcome back, Jason",
                         style: TextStyle(
                           fontSize: 18,
@@ -33,77 +41,20 @@ class HomePage extends StatelessWidget {
                           color: primaryColor,
                         ),
                       ),
-                      const SizedBox(height: 5),
-                      Text(
-                        "Friday, 17 Feb",
-                        style: TextStyle(
-                            fontSize: 14, color: greyColor.withOpacity(.4)),
-                      )
+                      SizedBox(height: 5),
+                      // Text(
+                      //   "Friday, 17 Feb",
+                      //   style: TextStyle(
+                      //       fontSize: 14, color: greyColor.withOpacity(.4)),
+                      // )
                     ],
                   ),
-                  const UserInitialsWidget(name: 'Jason Bitega'),
+                  UserInitialsWidget(name: 'Jason Bitega'),
                 ],
               ),
               const SizedBox(height: 20),
               const AddReadingNudge(),
-              // const Padding(
-              //   padding: EdgeInsets.symmetric(vertical: 20, horizontal: 0),
-              //   child: Text(
-              //     "Quick Access",
-              //     style: TextStyle(fontSize: 14, color: greyColor),
-              //   ),
-              // ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.start,
-              //   children: [
-              //     Padding(
-              //       padding:
-              //           const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-              //       child: Column(
-              //         children: [
-              //           IconButton(
-              //             iconSize: 60,
-              //             color: const Color.fromARGB(2557, 117, 68, 191),
-              //             icon: const Icon(Icons.add_box),
-              //             onPressed: () {
-              //               Navigator.pushNamed(
-              //                   context, AppRoutes.newReadingPageRoute);
-              //             },
-              //           ),
-              //           const Text(
-              //             "Add reading",
-              //             style: TextStyle(
-              //                 fontSize: 12,
-              //                 color: Color.fromARGB(2557, 117, 68, 191)),
-              //           )
-              //         ],
-              //       ),
-              //     ),
-              //     Padding(
-              //       padding:
-              //           const EdgeInsets.symmetric(vertical: 0, horizontal: 30),
-              //       child: Column(
-              //         children: [
-              //           IconButton(
-              //             iconSize: 60,
-              //             color: const Color.fromARGB(2557, 117, 68, 191),
-              //             icon: const Icon(Icons.add_box),
-              //             onPressed: () {
-              //               Navigator.pushNamed(
-              //                   context, AppRoutes.reminderPageRoute);
-              //             },
-              //           ),
-              //           const Text(
-              //             "Add Reminder",
-              //             style: TextStyle(
-              //                 fontSize: 12,
-              //                 color: Color.fromARGB(2557, 117, 68, 191)),
-              //           )
-              //         ],
-              //       ),
-              //     ),
-              //   ],
-              // ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -122,13 +73,36 @@ class HomePage extends StatelessWidget {
                   )
                 ],
               ),
+              StoreConnector<AppState, UserReadingsViewModel>(
+                converter: (store) => UserReadingsViewModel.fromStore(store),
+                builder: (BuildContext context,
+                    UserReadingsViewModel userReadingsViewModel) {
+                  if (userReadingsViewModel.userReadings?.isEmpty ?? true) {
+                    return const SizedBox();
+                  }
+                  final BPReading? lastReading =
+                      userReadingsViewModel.userReadings?.last;
+                  final String systole = lastReading?.systole ?? "";
+                  final String diastole = lastReading?.diastole ?? "";
+                  final String reading = "$systole/$diastole";
+                  final String note = lastReading?.note ?? "";
+                  final String date = lastReading?.date ?? "";
+                  final String status = getStatus(lastReading!);
 
-              const BPReadingCard(
-                reading: "120/80",
-                dateRecorded: "May 19, 2024 at 9:30 AM",
-                status: "NORMAL",
-                showMargin: false,
+                  return BPReadingCard(
+                    reading: reading,
+                    dateRecorded: date,
+                    status: status,
+                    description: note,
+                  );
+                },
               ),
+              // const BPReadingCard(
+              //   reading: "120/80",
+              //   dateRecorded: "May 19, 2024 at 9:30 AM",
+              //   status: "NORMAL",
+              //   showMargin: false,
+              // ),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -143,35 +117,34 @@ class HomePage extends StatelessWidget {
                   TextButton(
                     child: const Text("View more"),
                     onPressed: () {
-                      Navigator.pushNamed(context, AppRoutes.reminderPage);
+                      Navigator.pushNamed(context, AppRoutes.listRemindersPage);
                     },
                   )
                 ],
               ),
 
               const SizedBox(height: 10),
-              const ReminderCard(
-                title: 'Take a new blood pressure reading',
-                description:
-                    'Ensure it is recorded correctly with the BP machine',
-                dueAt: 'At 7 AM',
-              ),
-              const SizedBox(height: 10),
+              StoreConnector<AppState, UserRemindersViewModel>(
+                converter: (store) => UserRemindersViewModel.fromStore(store),
+                builder: (BuildContext context,
+                    UserRemindersViewModel userRemindersViewModel) {
+                  if (userRemindersViewModel.userReminders?.isEmpty ?? true) {
+                    return const SizedBox();
+                  }
+                  final Reminder? lastReminder =
+                      userRemindersViewModel.userReminders?.last;
+                  final String title = lastReminder?.title ?? '';
+                  final String description = lastReminder?.description ?? '';
+                  final String dueDate = lastReminder?.dueDate ?? '';
 
-              const ReminderCard(
-                title: 'Take a new blood pressure reading',
-                description:
-                    'Ensure it is recorded correctly with the BP machine',
-                dueAt: 'At 7 AM',
+                  return ReminderCard(
+                    title: title,
+                    description: description,
+                    dueAt: dueDate,
+                  );
+                },
               ),
-              const SizedBox(height: 10),
 
-              const ReminderCard(
-                title: 'Take a new blood pressure reading',
-                description:
-                    'Ensure it is recorded correctly with the BP machine',
-                dueAt: 'At 7 AM',
-              ),
               const SizedBox(height: 10),
             ],
           ),
