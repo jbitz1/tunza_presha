@@ -42,7 +42,7 @@ class IncrementAction extends ReduxAction<int> {
 /// with the view-model created with the previous state.
 /// Only if the view-model changed, the connector rebuilds.
 class MyHomePageConnector extends StatelessWidget {
-  MyHomePageConnector({Key? key}) : super(key: key);
+ const MyHomePageConnector({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -19,9 +19,9 @@ class BPFiltersWidget extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: TextButton(
               style: ButtonStyle(
-                fixedSize: const MaterialStatePropertyAll(Size(100, 20)),
+                fixedSize: const WidgetStatePropertyAll(Size(100, 20)),
                 backgroundColor:
-                    MaterialStatePropertyAll(primaryColor.withOpacity(.2)),
+                    WidgetStatePropertyAll(primaryColor.withOpacity(.2)),
               ),
               onPressed: () {},
               child: const Text(
@@ -39,8 +39,8 @@ class BPFiltersWidget extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 8),
             child: TextButton(
               style: ButtonStyle(
-                  fixedSize: MaterialStatePropertyAll(Size(100, 20)),
-                  backgroundColor: MaterialStatePropertyAll(
+                  fixedSize: WidgetStatePropertyAll(Size(100, 20)),
+                  backgroundColor: WidgetStatePropertyAll(
                       Color.fromARGB(50, 105, 116, 137))),
               onPressed: null,
               child: Text(
@@ -56,8 +56,8 @@ class BPFiltersWidget extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 8),
             child: TextButton(
               style: ButtonStyle(
-                fixedSize: MaterialStatePropertyAll(Size(102, 20)),
-                backgroundColor: MaterialStatePropertyAll(
+                fixedSize: WidgetStatePropertyAll(Size(102, 20)),
+                backgroundColor: WidgetStatePropertyAll(
                   Color.fromARGB(50, 105, 116, 137),
                 ),
               ),
@@ -75,8 +75,8 @@ class BPFiltersWidget extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 8),
             child: TextButton(
               style: ButtonStyle(
-                fixedSize: MaterialStatePropertyAll(Size(102, 20)),
-                backgroundColor: MaterialStatePropertyAll(
+                fixedSize: WidgetStatePropertyAll(Size(102, 20)),
+                backgroundColor: WidgetStatePropertyAll(
                   Color.fromARGB(50, 105, 116, 137),
                 ),
               ),

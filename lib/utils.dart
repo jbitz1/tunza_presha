@@ -44,20 +44,21 @@ and https://www.ncbi.nlm.nih.gov/books/NBK570233/table/ch1.tab1/
 */
 
 String getStatus(BPReading reading) {
-    int systole = int.tryParse(reading.systole ?? '') ?? 0;
-    int diastole = int.tryParse(reading.diastole ?? '') ?? 0;
+  int systole = int.tryParse(reading.systole ?? '') ?? 0;
+  int diastole = int.tryParse(reading.diastole ?? '') ?? 0;
 
-    String systoleStatus = processSystoleBP(systole);
-    String diastoleStatus = processDiastoleBP(diastole);
+  String systoleStatus = processSystoleBP(systole);
+  String diastoleStatus = processDiastoleBP(diastole);
 
-    if (systoleStatus == "ELEVATED" || diastoleStatus == "ELEVATED") {
-      return "ELEVATED";
-    } else if (systoleStatus == "NORMAL" && diastoleStatus == "NORMAL") {
-      return "NORMAL";
-    } else {
-      return "LOW";
-    }
+  if (systoleStatus == "ELEVATED" || diastoleStatus == "ELEVATED") {
+    return "ELEVATED";
+  } else if (systoleStatus == "NORMAL" && diastoleStatus == "NORMAL") {
+    return "NORMAL";
+  } else {
+    return "LOW";
   }
+}
+
 String processSystoleBP(int value) {
   if (value <= 119) {
     return "LOW";
@@ -121,8 +122,13 @@ Future<bool> signUp({
 
   final FirebaseAuthService auth = FirebaseAuthService();
 
-  User? user = await auth.signUpWithEmailAndPassword(emailAddress, password);
-  return user != null;
+  try {
+    User? user = await auth.signUpWithEmailAndPassword(emailAddress, password);
+    return user != null;
+  } catch (e) {
+    print(e);
+    return false;
+  }
 }
 
 validateEmail(String emailAddress) {

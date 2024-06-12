@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:tunza_presha/components/buttons.dart';
 import 'package:tunza_presha/components/custom_text_field.dart';

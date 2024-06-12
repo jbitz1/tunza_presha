@@ -2,6 +2,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:tunza_presha/components/add_reading_nudge.dart';
 import 'package:tunza_presha/components/bp_reading_card.dart';
+import 'package:tunza_presha/components/buttons.dart';
 import 'package:tunza_presha/components/reminder_card.dart';
 import 'package:tunza_presha/components/user_initials_widget.dart';
 import 'package:tunza_presha/constants/color_constants.dart';
@@ -144,7 +145,15 @@ class HomePage extends StatelessWidget {
                 },
               ),
 
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
+              Center(
+                child: SecondaryButton(
+                  text: 'Logout',
+                  onPressed: () {
+                    Navigator.pushNamed(context, AppRoutes.loginPage);
+                  },
+                ),
+              ),
             ],
           ),
         ],

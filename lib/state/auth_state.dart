@@ -13,6 +13,7 @@ part 'auth_state.g.dart';
 class AuthState with _$AuthState {
   factory AuthState({
     @JsonKey(name: 'isSignedIn') bool? isSignedIn,
+    // @JsonKey(name: 'username') bool? username,
   }) = _AuthState;
 
   factory AuthState.initial() => AuthState(isSignedIn: false);
