@@ -1,8 +1,11 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:tunza_presha/constants/color_constants.dart';
 import 'package:tunza_presha/router/routes.dart';
+import 'package:tunza_presha/state/app_state.dart';
 import 'package:tunza_presha/state/bp_reading.dart';
+import 'package:tunza_presha/state/view_models/bp_readings_view_model.dart';
 
 class BPMetricsPage extends StatelessWidget {
   const BPMetricsPage({super.key});
@@ -24,16 +27,25 @@ class BPMetricsPage extends StatelessWidget {
           ),
           title: const Text('Blood Pressure Chart'),
         ),
-        body: BloodPressureChart(
-          bpReadings: [
-            BPReading(systole: '120', diastole: '80', date: 'Jan'),
-            BPReading(systole: '118', diastole: '78', date: 'Feb'),
-            BPReading(systole: '122', diastole: '82', date: 'Mar'),
-            BPReading(systole: '125', diastole: '85', date: 'Apr'),
-            BPReading(systole: '121', diastole: '81', date: 'May'),
-            BPReading(systole: '124', diastole: '84', date: 'Jun'),
-          ],
-        ),
+        body: StoreConnector<AppState, UserReadingsViewModel>(
+            converter: (Store<AppState> store) =>
+                UserReadingsViewModel.fromStore(store),
+            builder: (BuildContext context,
+                UserReadingsViewModel userReadingsViewModel) {
+              if (userReadingsViewModel.userReadings?.isEmpty ?? true) {
+                // return const Text("No Readings Found");
+              }
+              return BloodPressureChart(
+                bpReadings: userReadingsViewModel.userReadings?.map((reading) {
+                      return BPReading(
+                        systole: reading?.systole ?? "",
+                        diastole: reading?.diastole ?? "",
+                        // date: reading?.date ?? "",
+                      );
+                    }).toList() ??
+                    [],
+              );
+            }),
       ),
     );
   }
