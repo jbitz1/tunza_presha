@@ -4,7 +4,6 @@ import 'package:tunza_presha/components/add_reading_nudge.dart';
 import 'package:tunza_presha/components/bp_reading_card.dart';
 import 'package:tunza_presha/components/buttons.dart';
 import 'package:tunza_presha/components/reminder_card.dart';
-import 'package:tunza_presha/components/user_initials_widget.dart';
 import 'package:tunza_presha/constants/color_constants.dart';
 import 'package:tunza_presha/router/routes.dart';
 import 'package:tunza_presha/state/app_state.dart';
@@ -34,7 +33,7 @@ class HomePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        "Welcome back, Jason",
+                        "Welcome back",
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -45,10 +44,10 @@ class HomePage extends StatelessWidget {
                       humanizeDate(loadedDate: DateTime.now().toIso8601String())
                     ],
                   ),
-                  const UserInitialsWidget(name: 'Jason Bitega'),
+                  // const UserInitialsWidget(name: 'Jason Bitega'),
                 ],
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 40),
               const AddReadingNudge(),
 
               Row(

@@ -16,6 +16,7 @@ class BPMetricsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Blood Pressure Chart',
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           leading: BackButton(
@@ -59,7 +60,7 @@ class BPMetricsPage extends StatelessWidget {
                     color: primaryColor, text: 'Systolic Blood Pressure'),
                 SizedBox(width: 16.0),
                 LegendItem(
-                    color: Colors.blue, text: 'Diastolic Blood Pressure'),
+                    color: Colors.green, text: 'Diastolic Blood Pressure'),
               ],
             ),
           ],

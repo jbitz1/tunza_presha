@@ -18,10 +18,12 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) => StoreProvider<int>(
       store: store,
-      child: MaterialApp(
+      child: const MaterialApp(
         home: MyHomePageConnector(),
       ));
 }
@@ -99,11 +101,11 @@ class MyHomePage extends StatelessWidget {
   final int? counter;
   final VoidCallback? onIncrement;
 
-  MyHomePage({
-    Key? key,
+  const MyHomePage({
+    super.key,
     this.counter,
     this.onIncrement,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

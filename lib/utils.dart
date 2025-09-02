@@ -1,13 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
+import 'package:intl/intl.dart';
+
 import 'package:tunza_presha/constants/color_constants.dart';
-import 'package:tunza_presha/constants/database_constants.dart';
 import 'package:tunza_presha/constants/string_constants.dart';
 import 'package:tunza_presha/constants/validator_constants.dart';
 import 'package:tunza_presha/firebase/firebase_auth_services.dart';
-import 'package:intl/intl.dart';
 import 'package:tunza_presha/state/bp_reading.dart';
+
+import 'constants/database_constants.dart';
 
 void createUser() {
   final db = FirebaseFirestore.instance;
